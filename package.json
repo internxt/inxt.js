@@ -67,7 +67,7 @@
     "memory-blob-store": "^5.0.1",
     "render-media": "^2.10.0",
     "setimmediate": "^1.0.5",
-    "storj-lib": "^6.3.2",
+    "storj-lib": "github:internxt/core",
     "stream-to-blob": "^1.0.0",
     "stream-to-blob-url": "^2.1.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
