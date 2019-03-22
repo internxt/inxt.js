@@ -1,14 +1,3 @@
-**Notice: Development on this repository is currently on pause during our v3 rearchitecture. Please see [storj/storj](https://github.com/storj/storj) for ongoing v3 development.**
-
-![storj.js](http://i.imgur.com/ikzVmnd.png)
-
-The official Storj library, for **node.js** and the **browser**.
-
-
-## Development Status
-
-This library is currently in early beta. It is released for **testing purposes only**. Files uploaded via storj.js are **not currently compatible with the reference implementation**. If you are developing an application, we **strongly recommend that you use [libstorj](https://github.com/storj/libstorj)** via bindings.
-
 ## Table of Contents
 
 - [Install](#install)
