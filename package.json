@@ -1,6 +1,6 @@
 {
   "name": "storj",
-  "version": "0.0.0",
+  "version": "git",
   "description": "Storj.io browser library",
   "main": "./lib/index.js",
   "browser": "./lib/browser.js",
