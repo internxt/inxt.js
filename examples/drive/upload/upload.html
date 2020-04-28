@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Storj upload/download example</title>
+    <script src="drag-drop/stream_bundle.js"></script>
+    <script src="../environment.js"></script>
+    <script src="../../../storj.es6.debug.js"></script>
+  </head>
+  <body>
+    <h1>Storj Browser Upload/Download Example</h1>
+    <input type="file" id="input" onchange="handleFiles(this.files)">
+    <img id="pic"></img>
+    <script>
+      const bucketId = '5b8166b3f58b70d7d433a7f7';
+      const fileId = "5bb38a343ca4146beb30388a"; //img
+
+      const storj = new Storj(environment.storj);
+
+      var rs = storj.download(bucketId, fileId)
+      var concat = new Int8Array()
+
+      rs.on('data', (data) => {
+        concat = _appendBuffer(concat, data)
+        console.log('got decrypted stream')
+      })
+
+      rs.on('end',()=>{
+        console.log(concat)
+        var blob = new Blob([concat], {type:"image/png"})
+        var img = document.createElement("img");
+        document.getElementById("pic").src = window.URL.createObjectURL(blob);
+        document.getElementById("pic").height = 400;
+        document.body.appendChild(img);
+      })
+
+      var _appendBuffer = function(buffer1, buffer2) {
+        var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+        tmp.set(new Uint8Array(buffer1), 0);
+        tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+        return tmp.buffer;
+      };
+
+      var handleFiles = function(files) {
+        console.log(files);
+        var rs = window.getFileStream(files);
+        var uploadStream = storj.upload(bucketId, files[0].name)
+        rs.pipe(uploadStream)
+
+        uploadStream.on('encrypted', () => {
+          console.log('file finished encrypting')
+        })
+
+        uploadStream.on('stored', () => {
+          console.log('encrypted file stored locally')
+        })
+
+        uploadStream.on('done', (res) => {
+          console.log('finished everything!!!')
+          console.log(res)
+        })
+      };
+    </script>
+  </body>
+</html>
