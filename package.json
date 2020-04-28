@@ -6,20 +6,21 @@
   "browser": "./lib/browser.js",
   "directories": {},
   "scripts": {
-    "prebuild": "npm dedupe",
-    "build": "browserify -s 'storj' -d ./lib/browser.js > storj.es6.debug.js && babel -o storj.es5.js -s true ./storj.es6.debug.js && cat storj.es6.debug.js | exorcist storj.es6.js.map > storj.es6.js && rm ./storj.es6.debug.js",
+    "prebuild": "echo npm dedupe",
+    "build": "browserify -s 'storj' ./lib/browser.js -o storj.es6.debug.js && babel -o storj.es5.js -s true ./storj.es6.debug.js && echo exorcist... && cat storj.es6.debug.js | exorcist storj.es6.js.map > storj.es6.js && rimraf ./storj.es6.debug.js",
     "posttest": "npm run linter",
     "test": "npm run test-node && npm run test-browser",
     "test-node": "nyc --reporter=text --reporter=html tape test/all/*.js",
     "test-browser": "testling",
     "bundle-tests": "browserify -s 'storj' -d ./lib/browser.js ./test/all/*.js ./test/browser/*.js > storj.test.js",
     "linter": "eslint .",
-    "make-docs": "rm -rf ./jsdoc && ./node_modules/.bin/jsdoc lib -r -R README.md -c .jsdoc.json --verbose -d ./jsdoc"
+    "make-docs": "rimraf ./jsdoc && ./node_modules/.bin/jsdoc lib -r -R README.md -c .jsdoc.json --verbose -d ./jsdoc"
   },
   "browserify": {
     "transform": [
       "envify"
-    ]
+    ],
+    "compact": true
   },
   "testling": {
     "files": [
@@ -30,7 +31,14 @@
   "babel": {
     "inputSourceMap": true,
     "presets": [
-      "es2015"
+      "@babel/preset-env"
+    ],
+    "compact": true,
+    "comments": false,
+    "ignore": [
+      "./test",
+      "./jsdoc",
+      "./examples"
     ]
   },
   "author": "Chris Pollard",
@@ -42,10 +50,12 @@
   ],
   "license": "LGPL",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.24.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "blob-to-buffer": "^1.2.6",
     "browserify": "^16.5.1",
+    "cat": "^0.2.0",
     "envify": "^4.0.0",
     "eslint": "^3.14.0",
     "exorcist": "^0.4.0",
@@ -54,6 +64,7 @@
     "longjohn": "^0.2.12",
     "nyc": "^10.0.0",
     "proxyquire": "^1.7.10",
+    "rimraf": "^3.0.2",
     "tape": "^4.6.3",
     "testling": "^1.7.1",
     "uuid": "^7.0.3"
