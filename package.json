@@ -55,7 +55,8 @@
     "nyc": "^10.0.0",
     "proxyquire": "^1.7.10",
     "tape": "^4.6.3",
-    "testling": "^1.7.1"
+    "testling": "^1.7.1",
+    "uuid": "^7.0.3"
   },
   "dependencies": {
     "bitcore-mnemonic": "=1.1.1",
