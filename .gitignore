@@ -2,6 +2,7 @@ node_modules/
 .nyc_output/
 coverage/
 storj.es5.js
+storj.es6.debug.js
 storj.es6.js
 storj.es5.js.map
 storj.es6.js.map

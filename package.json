@@ -7,7 +7,8 @@
   "directories": {},
   "scripts": {
     "prebuild": "echo npm dedupe",
-    "build": "browserify -s 'storj' ./lib/browser.js -o storj.es6.debug.js && babel -o storj.es5.js -s true ./storj.es6.debug.js && echo exorcist... && cat storj.es6.debug.js | exorcist storj.es6.js.map > storj.es6.js && rimraf ./storj.es6.debug.js",
+    "build:prod": "browserify -s 'storj' ./lib/browser.js -o storj.es6.debug.js && babel -o storj.es5.js -s true ./storj.es6.debug.js && echo exorcist... && cat storj.es6.debug.js | exorcist storj.es6.js.map > storj.es6.js && rimraf ./storj.es6.debug.js",
+    "build:dev": "browserify -s 'storj' ./lib/browser.js -o storj.es6.debug.js",
     "posttest": "npm run linter",
     "test": "npm run test-node && npm run test-browser",
     "test-node": "nyc --reporter=text --reporter=html tape test/all/*.js",
